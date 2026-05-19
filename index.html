@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Air Pollution in Ulaanbaatar, Mongolia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px 28px 60px 28px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      margin-bottom: 0.3em;
+    }
+
+    h2 {
+      margin-top: 2.2em;
+      border-bottom: 2px solid #e5e5e5;
+      padding-bottom: 0.3em;
+    }
+
+    h3 {
+      margin-top: 1.6em;
+    }
+
+    p {
+      font-size: 1.05rem;
+      margin: 1em 0;
+    }
+
+    ul, ol {
+      padding-left: 1.4em;
+    }
+
+    li {
+      margin: 0.4em 0;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 22px auto 28px auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .intro {
+      font-size: 1.1rem;
+    }
+
+    .caption {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: -15px;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .top-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: #0b57d0;
+      font-weight: bold;
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="top-link" href="./">View the repository</a>
+
+    <h1>Air Pollution in Ulaanbaatar, Mongolia</h1>
+
+    <p class="intro">
+      Air pollution in Ulaanbaatar is one of the city’s most serious environmental problems, especially during the winter. For this project, I used daily air quality data and daily weather data from 2016 to 2019 to study how pollution changes over time, how it differs across monitoring stations, and how weather conditions are associated with daily pollution levels.
+    </p>
+
+    <h2>Why this topic matters</h2>
+    <p>
+      I chose this topic because it is personally meaningful to me, but it also turned out to be a strong data science topic. Ulaanbaatar is often discussed as a city with severe winter air pollution, so it was interesting to see whether the data would show the same pattern clearly, which pollutants were most affected, and whether pollution looked the same across the whole city.
+    </p>
+    <p>
+      One thing that made this project especially interesting is that air pollution is not just one number. Different pollutants behave differently, and they may respond to season, location, and weather in different ways. That made it possible to go beyond one simple chart and build a fuller analysis.
+    </p>
+
+    <h2>The data I used</h2>
+    <p>This project used three main sources of data:</p>
+    <ul>
+      <li>OpenAQ API data for air quality monitoring stations in Ulaanbaatar</li>
+      <li>Daily weather data for Ulaanbaatar, including temperature, precipitation, wind speed, and snowfall</li>
+      <li>Approximate station coordinates used for a supporting station map</li>
+    </ul>
+
+    <p>The air data included six pollutants:</p>
+    <ul>
+      <li>CO</li>
+      <li>NO2</li>
+      <li>O3</li>
+      <li>PM10</li>
+      <li>PM2.5</li>
+      <li>SO2</li>
+    </ul>
+
+    <p>
+      The raw data could not be analyzed immediately. I first had to clean dates, organize the air measurements into useful city-level and station-level summaries, and merge the air data with daily weather variables. I kept that work in a separate notebook so the final notebook could focus on analysis and interpretation.
+    </p>
+
+    <h2>What I wanted to find out</h2>
+    <ol>
+      <li>How do major air pollutants in Ulaanbaatar vary across seasons and years?</li>
+      <li>Which monitoring stations show the worst pollution levels, and do stations group into different pollution profiles?</li>
+      <li>How are daily weather conditions associated with air pollution levels?</li>
+    </ol>
+
+    <h2>Finding 1: Pollution is much worse in winter</h2>
+    <p>
+      The clearest pattern in the project was that most major pollutants rise sharply during winter. This means the pollution problem is not evenly spread across the year. Instead, it becomes much more severe during colder months.
+    </p>
+
+    <img src="Figures/seasonal_pollutant_levels.png" alt="Seasonal pollutant levels">
+    <div class="caption">Most major pollutants rise sharply in winter, while O3 behaves differently and is higher in warmer conditions.</div>
+
+    <p>
+      This seasonal chart shows that SO2, PM2.5, and CO all become much higher in winter than in warmer seasons. PM10 and NO2 also rise in winter, although less dramatically. O3 stands out because it behaves differently from the other pollutants and is higher in warmer conditions.
+    </p>
+
+    <img src="Figures/monthly_pm25_trend.png" alt="Monthly PM2.5 trend">
+    <div class="caption">PM2.5 shows repeated winter spikes across the full study period instead of one isolated event.</div>
+
+    <p>
+      The monthly PM2.5 trend shows repeated winter peaks across the full study period. This is not a one-time event. The same seasonal pattern keeps appearing again and again.
+    </p>
+
+    <img src="Figures/annual_pollutant_trends.png" alt="Annual pollutant trends">
+    <div class="caption">Some pollutants decline across the years, but not all of them follow the same long-term pattern.</div>
+
+    <p>
+      The yearly averages show that some pollutants declined over the four years, but they did not all change in the same way. PM2.5 and SO2 both dropped noticeably across the study period, while PM10 did not show the same steady improvement. That means the long-term trend is more complicated than simply saying the city improved every year.
+    </p>
+
+    <h2>Finding 2: Pollution is not evenly distributed across the city</h2>
+    <p>
+      Citywide averages are useful, but they can hide local differences. To see whether all monitoring stations looked similar, I compared station-level pollution patterns and then grouped stations using k-means clustering.
+    </p>
+
+    <img src="Figures/station_cluster_profiles.png" alt="Station cluster profiles">
+    <div class="caption">Stations do not all share the same pollution profile, which suggests local differences across the city.</div>
+
+    <p>
+      The clustering results suggest that the monitoring stations do not all share the same pollution profile. Some stations cluster together because they have generally higher particulate and gas pollution, while others form groups with lower overall values or a different mix of pollutants.
+    </p>
+
+    <img src="Figures/pm25_city_map.png" alt="PM2.5 city map">
+    <div class="caption">Average PM2.5 differs across station locations, even when using only approximate coordinates.</div>
+
+    <p>
+      The map makes the station differences easier to understand geographically. Some stations, such as Tolgoit and 1-r khoroolol, stand out with higher average PM2.5 levels, while others are noticeably lower. Even though the coordinates are only approximate, the map still helps connect the station results back to actual parts of the city.
+    </p>
+
+    <h2>Finding 3: Cold weather is strongly associated with worse pollution</h2>
+    <p>
+      After looking at time patterns and station differences, I wanted to understand whether daily weather conditions were associated with changes in pollution. To do that, I merged the daily city-level air data with weather data and compared pollutants with temperature, precipitation, snowfall, and wind speed.
+    </p>
+
+    <img src="Figures/weather_correlation_heatmap.png" alt="Weather correlation heatmap">
+    <div class="caption">Temperature stands out as the strongest weather-related variable for several major pollutants.</div>
+
+    <p>
+      The most important thing in the correlation heatmap is that temperature stands out much more strongly than the other weather variables. For most pollutants, especially PM2.5, SO2, and CO, the relationship with temperature is strongly negative. That means colder days tend to line up with worse pollution.
+    </p>
+
+    <img src="Figures/temperature_bin_pollutants.png" alt="Temperature bin pollutants">
+    <div class="caption">PM2.5, PM10, and SO2 are highest on the coldest days, while O3 moves in the opposite direction.</div>
+
+    <p>
+      Grouping days into temperature ranges makes the pattern easier to understand. PM2.5, PM10, and SO2 are highest on the coldest days and generally decrease as temperatures rise. O3 moves in the opposite direction, increasing on warmer days.
+    </p>
+
+    <p>
+      I also fit a simple multiple linear regression model using PM2.5 as the response variable and temperature, wind speed, precipitation, and snowfall as predictors. The regression supported the earlier results by showing that temperature remained the strongest weather-related variable even after the other weather variables were considered at the same time.
+    </p>
+
+    <h2>Techniques I used</h2>
+    <p>
+      A big new part of this project was the data wrangling process, especially because the raw data was more complicated than I expected. A lot of the work was not just cleaning the data, but first figuring out how to even get the right data out of the API. I ran into failed requests, had to debug the structure of the responses, and realized that some of the values I needed were nested inside other fields instead of being ready to use. So a lot of the project involved working through those problems, unpacking the nested data, and then reorganizing everything into summary tables that I could actually analyze.
+    </p>
+
+    <p>
+      I also had to install and use some new libraries, especially for the geographic map, since that part needed tools beyond the normal plotting libraries I had used before. I decided to use these methods because I wanted the project to do more than just show a few charts. I wanted it to look at the pollution problem across time, across different parts of the city, and in relation to weather conditions.
+    </p>
+
+    <h2>What surprised me</h2>
+    <p>
+      The biggest surprise was how strong the winter effect really was once I calculated it. I expected winter pollution to be worse, but the difference was more dramatic than I thought, especially for PM2.5, SO2, and CO.
+    </p>
+
+    <p>
+      Another thing that stood out was how consistently O3 behaved differently from the other pollutants. That pattern came up in the seasonal charts, the correlations, and the temperature-bin analysis, so it ended up being one of the most interesting contrasts in the project.
+    </p>
+
+    <h2>What was challenging</h2>
+    <p>
+      The hardest part of the project was not making the charts. It was getting the data into a form where the analysis made sense. The raw air data had to be cleaned, summarized, and reorganized before I could even start answering the project questions.
+    </p>
+
+    <p>
+      Another challenge was that not every station measured every pollutant. That meant I had to be careful in the station analysis and make sure I was not comparing incomplete station profiles in a misleading way.
+    </p>
+
+    <h2>Limitations</h2>
+    <p>
+      This project has a few important limitations. Not every monitoring station measured every pollutant, the station map uses approximate coordinates rather than exact official station boundaries, and the weather analysis shows associations rather than proof of causation. Even with those limits, the data was still strong enough to show clear patterns across time, stations, and weather conditions.
+    </p>
+
+    <h2>Final takeaway</h2>
+    <p>
+      Overall, this project shows that air pollution in Ulaanbaatar is shaped by three big factors at once: strong winter seasonality, important station-level differences, and weather conditions, especially temperature. The city does not just have bad air in a general sense. The severity changes across the year, it differs across monitoring locations, and it is strongly associated with colder conditions.
+    </p>
+
+    <p>
+      That is what made this project interesting. The data did not just confirm that pollution exists. It helped show how the problem changes over time, where it appears more strongly, and which environmental conditions are most closely connected to it.
+    </p>
+
+    <h2>Credits</h2>
+    <p>
+      This project used course materials, DataCamp modules, and outside tools for debugging and workflow support. ChatGPT was used at some points to help with coding issues, notebook organization, and interpretation of results.
+    </p>
+  </div>
+</body>
+</html>
