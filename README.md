@@ -42,14 +42,14 @@ Some of the main findings from the project are:
 - Temperature is the strongest weather-related factor in the dataset, with colder days associated with much worse **PM2.5**, **SO2**, and **CO**
 - A simple regression model showed that temperature and wind speed were both meaningfully associated with PM2.5 levels
 
-##Folder descriptions
+## Folder descriptions
 - notebooks/ contains the main project notebooks
   - CS215_FinalProject_DATA.ipynb contains data collection, cleaning, and dataset preparation
   - CS215_FinalProject_ARVIN.ipynb contains the final analysis, visualizations, and interpretation
 - data/ contains all the datasets used for this project
 - figures/ contains exported figures from the final notebook
 
-##Limitations
+## Limitations
 
 This project has a few important limitations:
 
@@ -58,6 +58,6 @@ This project has a few important limitations:
 - the station map uses approximate coordinates rather than exact official station boundaries
 - the weather analysis shows associations between variables, but it does not prove causation
 
-##Credits
+## Credits
 
 This project used course materials, DataCamp modules, and outside tools for debugging and workflow support. ChatGPT was used at some points to help think through coding issues.
